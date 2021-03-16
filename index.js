@@ -12,20 +12,29 @@ const mouse = {
     x: 500,
     y: 500
 }
+let weDraw=false
 canvas.addEventListener('click', function(event){
+    
     mouse.x = event.x
     mouse.y = event.y
-    for(let i = 0; i<1;i++){
-        particles.push(new Particle())
+    if (weDraw) clearInterval(timer), weDraw=false
+    else{
+        timer=setInterval(function(){
+            for(let i = 0; i<20;i++){
+            particles.push(new Particle())
+        }
+        }, 10)
+        weDraw=true
     }
     
 })
+
 canvas.addEventListener('mousemove', function(event){
     mouse.x = event.x
     mouse.y = event.y
-    for(let i = 0; i<25;i++){
+    /* for(let i = 0; i<25;i++){
         particles.push(new Particle())
-    }
+    } */
 })
 
 
@@ -83,7 +92,7 @@ function handleParticles(){
 }
 function animate(){
     //ctx.clearRect(0,0,canvas.width,canvas.height)
-    ctx.fillStyle = 'rgba(0,0,0,0.02)'
+    ctx.fillStyle = 'rgba(0,0,0,0.01)'
     ctx.fillRect(0,0,canvas.width,canvas.height)
     handleParticles()
     requestAnimationFrame(animate)
